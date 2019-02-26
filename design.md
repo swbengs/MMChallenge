@@ -16,13 +16,15 @@ I plan for there to be 3 phases
 ## notes/ramblings
 This section may sometimes belong in another file but it's where I'll write about things I know and or am still figuring out.
 
-Route -> just like irl router. directs what should go to what view/controller etc
-Models -> take control of a single table and data entry, deletion, updating etc
-Controller -> many uses but a route points to this if done properly
-View -> simple a webpage of some sort. Can be html, php, javascript, and so on.
-Service -> similar to a controller but is used to stop controllers from knowing about eloquent and can share lots of generic code with controllers. Requires more files and proper directory management
+* Route -> just like irl router. directs what should go to what view/controller etc
+* Models -> take control of a single table and data entry, deletion, updating etc
+* Controller -> many uses but a route points to this if done properly
+* View -> simple a webpage of some sort. Can be html, php, javascript, and so on.
+* Service -> similar to a controller but is used to stop controllers from knowing about eloquent and can share lots of generic code with controllers. Requires more files and proper directory management
 
 No idea of what to call Pokemon.php. The purpose of this file/class is to abstract how a pokemon is stored in the database from other stuff. 
-Lets us change the database representation and no one needs to know above it. Controller doesn't seem to fit. Maybe Service? Model does not fit because it doesn't control the tables itself.
+Let's us change the database representation and no one needs to know above it. Controller doesn't seem to fit. Maybe Service? Model does not fit because it doesn't control the tables itself.
 The models themselves will control the tables but this will guide the models to save the pieces of a pokemon. Have a method to return JSON ready array/dictionary/table of a pokemon for controllers to use and so on.
+Method to take pokemon information and place it all correctly in the required tables. Again simply an abstraction so we don't have to worry about how the pokemon is actually stored. Many controllers can use it so it should be shared.
+Controllers calling other controllers is bad design from what I've read
 
