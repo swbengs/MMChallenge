@@ -23,5 +23,5 @@ Each table needs a model
 ## Trainer table
 Trainers need to supply an email and password. Should have 3 fields, id, email, pass
 
-* trainer table(email and password) NOT PRODUCTION SAFE becaues I don't know how easy it is to save a hash value. First version will be plain text
+* trainer table(email, password, time created, time updated, api token) add on to auth generated User
 * caught table(id of trainer and id of pokemon that has been caught) is there a better way? Each trainer * 500+ caught pokemon is a lot of entries with many users
