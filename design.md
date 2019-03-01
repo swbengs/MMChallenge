@@ -29,3 +29,9 @@ The models themselves will control the tables but this will guide the models to 
 Method to take pokemon information and place it all correctly in the required tables. Again simply an abstraction so we don't have to worry about how the pokemon is actually stored. Many controllers can use it so it should be shared.
 Controllers calling other controllers is bad design from what I've read
 
+## Important notes
+
+* php artisan serve --host 0.0.0.0 must be run each time php code changes to have an effect
+* Sample addresses
+   * http://192.168.10.10:8000/api/pokemon/1, gets to homestead and the call for pokemon with id of 1
+
