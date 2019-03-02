@@ -2,7 +2,10 @@
 
 namespace App;
 
+use App\Ability;
+use App\EggType;
 use App\Pokemon;
+use App\Stat;
 use App\Type;
 //use Illuminate\Database\Eloquent\Model;
 
@@ -30,6 +33,30 @@ class PokemonRepository
         $pokemon->genus = $genus;
         $pokemon->description = $description;
         $pokemon->save();
+
+        foreach($abilties as $value)
+        {
+            $ability = new Ability;
+            $ability->pokemon_id = $id;
+            $ability->ability = $value;
+            $ability->save();
+        }
+
+        foreach($egg_groups as $value)
+        {
+            $egg_type = new EggType;
+            $egg_type->pokemon_id = $id;
+            $egg_type->egg_type = $value;
+            $egg_type->save();
+        }
+
+        foreach($types as $value)
+        {
+            $type = new Type;
+            $type->pokemon_id = $id;
+            $type->type = $value;
+            $type->save(); //don't forget to save to database ;)
+        }
     }
 
     public function setup()
@@ -45,15 +72,17 @@ class PokemonRepository
             
             $id = $data[0];
             $name = $data[1];
-            $types = $data[2];
+            $types = json_decode($data[2]);
             $height = $data[3];
             $weight = $data[4];
-            $abilties = $data[5];
-            $egg_groups = $data[6];
+            $abilties = json_decode($data[5]);
+            $egg_groups = json_decode($data[6]);
             $stats = $data[7];
             $genus = $data[8];
             $description = $data[9];
-            print($id . ' ' . $name . ',');
+            //print($id . ' ' . $name . ',');
+            //var_dump($types);
+            
             if($id === NULL) //quick and dirty safety check. Should make sure all values are good before calling setPokemon
             {
                 continue;
