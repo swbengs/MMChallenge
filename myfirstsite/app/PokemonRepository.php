@@ -17,10 +17,42 @@ class PokemonRepository
 {
     public function getPokemon($id)
     {
+        $result = array(); //associative array ready to be sent as JSON
         $pokemon = Pokemon::find($id);
-        //$type = Type::find($id);
 
-        return $pokemon;
+        $result['id'] = $pokemon->id;
+        $result['name'] = $pokemon->name;
+        $result['types'] = array();
+        $result['height'] = $pokemon->height;
+        $result['weight'] = $pokemon->weight;
+        $result['abilities'] = array();
+        $result['egg_groups'] = array();
+        $result['$stats'] = array();
+        $result['genus'] = $pokemon->genus;
+        $result['$description'] = $pokemon->description;
+
+        $types = Type::where('pokemon_id', $id)->get();
+        $abilities = Ability::where('pokemon_id', $id)->get();
+        $egg_types = EggType::where('pokemon_id', $id)->get();
+        //var_dump($types);
+
+        foreach($abilities as $ability)
+        {
+            array_push($result['abilities'], $ability->ability);
+        }
+
+        foreach($egg_types as $egg_type)
+        {
+            array_push($result['egg_groups'], $egg_type->egg_type);
+        }
+
+        foreach($types as $type)
+        {
+            array_push($result['types'], $type->type);
+            //print($type->type);
+        }
+
+        return $result;
     }
 
     public function setPokemon($id, $name, $types, $height, $weight, $abilties, $egg_groups, $stats, $genus, $description)
