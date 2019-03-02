@@ -14,11 +14,12 @@ class CreatePokemonTable extends Migration
     public function up()
     {
         Schema::create('pokemon', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            //$table->unsignedInteger('id');
+            $table->increments('id');
             $table->string('name', 100);
             $table->string('weight', 10);
             $table->string('height', 10);
-            $table->string('genus', 10);
+            $table->string('genus', 40);
             $table->string('description', 255);
         });
     }

@@ -1,5 +1,8 @@
 # File for database design ideas
 
+## CSV file
+type, abilities, egg groups, and stats are in JSON format. Use PHP JSON commands to grab the goods.
+
 ## Pokemon table
 Field names are "id","name","types","height","weight","abilities","egg_groups","stats","genus","description"
 

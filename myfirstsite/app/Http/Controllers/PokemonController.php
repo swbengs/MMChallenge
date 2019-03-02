@@ -18,8 +18,20 @@ class PokemonController extends Controller
         //return 200;
     }
 
+    public function setup()
+    {
+        $pokemon = new PokemonRepository();
+        return $pokemon->setup();
+    }
+
     public function test()
     {
         return response()->json(['error' => 'resouce not found'], 404);
+    }
+
+    public function csvTest()
+    {
+        $pokemon = new PokemonRepository();
+        return $pokemon->csvTest();
     }
 }
