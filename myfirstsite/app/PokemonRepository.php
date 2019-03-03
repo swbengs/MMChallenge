@@ -145,6 +145,9 @@ class PokemonRepository
             }
             
         }
+
+        fclose($file);
+
         return 200; //if we reach here it worked
     }
 
