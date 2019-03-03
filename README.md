@@ -1,6 +1,9 @@
 # MMChallenge
 2019 Summer Back-end challenge
 
+# pokedex.csv location
+* This file is expected to be in the sitename/storage/apps/ location. The gitignore file here makes it so that said .csv file is not shown to be here, but that is where it should be.
+
 # Languages
 * PHP 7+
 * Laravel framework(Homestead)
