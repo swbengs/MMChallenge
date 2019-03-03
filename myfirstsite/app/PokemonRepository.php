@@ -10,7 +10,7 @@ use App\Type;
 //use Illuminate\Database\Eloquent\Model;
 
 /*
-
+Class to abstract the database representation of Pokemon. Allows the controllers to not worry about how it's actually stored.
 */
 
 class PokemonRepository
@@ -27,14 +27,15 @@ class PokemonRepository
         $result['weight'] = $pokemon->weight;
         $result['abilities'] = array();
         $result['egg_groups'] = array();
-        $result['$stats'] = array();
+        $result['stats'] = array();
         $result['genus'] = $pokemon->genus;
-        $result['$description'] = $pokemon->description;
+        $result['description'] = $pokemon->description;
 
+        $stats = Stat::find($id);
         $types = Type::where('pokemon_id', $id)->get();
         $abilities = Ability::where('pokemon_id', $id)->get();
         $egg_types = EggType::where('pokemon_id', $id)->get();
-        //var_dump($types);
+        //var_dump($stats);
 
         foreach($abilities as $ability)
         {
@@ -52,6 +53,15 @@ class PokemonRepository
             //print($type->type);
         }
 
+        $result['stats']['hp'] = $stats->hp;
+        $result['stats']['speed'] = $stats->speed;
+        $result['stats']['attack'] = $stats->attack;
+        $result['stats']['defense'] = $stats->defense;
+        $result['stats']['special_attack'] = $stats->special_attack;
+        $result['stats']['special_defense'] = $stats->special_defense;
+
+        //var_dump($result);
+
         return $result;
     }
 
@@ -66,7 +76,17 @@ class PokemonRepository
         $pokemon->description = $description;
         $pokemon->save();
 
-        foreach($abilties as $value)
+        $stat = new Stat;
+        $stat->hp = $stats->hp; //$stats is an object
+        $stat->speed = $stats->speed;
+        $stat->attack = $stats->attack;
+        $stat->defense = $stats->defense;
+        $stat->special_attack = $stats->{'special-attack'}; //since JSON allows a - but PHP does not, place the offending name in {} and it works fine
+        $stat->special_defense = $stats->{'special-defense'};
+        $stat->save(); //don't forget () ;)
+        //var_dump($stat);
+
+        foreach($abilties as $value) //abilities is an array
         {
             $ability = new Ability;
             $ability->pokemon_id = $id;
@@ -74,7 +94,7 @@ class PokemonRepository
             $ability->save();
         }
 
-        foreach($egg_groups as $value)
+        foreach($egg_groups as $value) //egg_groups is an array
         {
             $egg_type = new EggType;
             $egg_type->pokemon_id = $id;
@@ -82,7 +102,7 @@ class PokemonRepository
             $egg_type->save();
         }
 
-        foreach($types as $value)
+        foreach($types as $value) //types is an array
         {
             $type = new Type;
             $type->pokemon_id = $id;
@@ -109,11 +129,11 @@ class PokemonRepository
             $weight = $data[4];
             $abilties = json_decode($data[5]);
             $egg_groups = json_decode($data[6]);
-            $stats = $data[7];
+            $stats = json_decode($data[7]);
             $genus = $data[8];
             $description = $data[9];
             //print($id . ' ' . $name . ',');
-            //var_dump($types);
+            //var_dump($stats);
             
             if($id === NULL) //quick and dirty safety check. Should make sure all values are good before calling setPokemon
             {

@@ -14,8 +14,7 @@ class CreateStatsTable extends Migration
     public function up()
     {
         Schema::create('stats', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('pokemon_id');
+            $table->increments('id'); //since pokemon and stats tables are 1 to 1, these will line up
             $table->unsignedInteger('hp');
             $table->unsignedInteger('speed');
             $table->unsignedInteger('attack');
