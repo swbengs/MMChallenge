@@ -26,56 +26,99 @@ class PokemonRepository
         //var_dump($args);
         $per_page = $args['per_page'] ?? 15; //combo of isset and ternary operator
 
-        return(array('page' => $page, 'per_page' => $per_page));
+        $paginate = Pokemon::simplePaginate($per_page);
+        return($paginate->toJson());
+
+        //return(array('page' => $page, 'per_page' => $per_page));
         //print($page . ', ' . $per_page);
     }
 
+    //method to get all of a pokemon's information
     public function getPokemon($id)
     {
-        $result = array(); //associative array ready to be sent as JSON
-        $pokemon = Pokemon::find($id);
+        $result = $this->getPokemonOnly($id); //associative array ready to be sent as JSON
+        $result['types'] = $this->getPokemonTypes($id);
+        $result['abilities'] = $this->getPokemonAbilities($id);
+        $result['egg_groups'] = $this->getPokemonEggGroups($id);
+        $result['stats'] = $this->getPokemonStats($id);
+        
+        //var_dump($result);
 
+        return $result;
+    }
+
+    //method to get just the pokemon table information and return as array
+    public function getPokemonOnly($id)
+    {
+        $result = array();
+
+        $pokemon = Pokemon::find($id);
         $result['id'] = $pokemon->id;
         $result['name'] = $pokemon->name;
-        $result['types'] = array();
         $result['height'] = $pokemon->height;
         $result['weight'] = $pokemon->weight;
-        $result['abilities'] = array();
-        $result['egg_groups'] = array();
-        $result['stats'] = array();
         $result['genus'] = $pokemon->genus;
         $result['description'] = $pokemon->description;
 
-        $stats = Stat::find($id);
-        $types = Type::where('pokemon_id', $id)->get();
+        return $result;
+    }
+
+    //method to get a pokemon's abilities and return as an array
+    public function getPokemonAbilities($id)
+    {
+        $result = array();
         $abilities = Ability::where('pokemon_id', $id)->get();
-        $egg_types = EggType::where('pokemon_id', $id)->get();
-        //var_dump($stats);
 
         foreach($abilities as $ability)
         {
-            array_push($result['abilities'], $ability->ability);
+            array_push($result, $ability->ability);
         }
+
+        return $result;
+    }
+
+    //method to get a pokemon's egg groups and return as an array
+    public function getPokemonEggGroups($id)
+    {
+        $result = array();
+
+        $egg_types = EggType::where('pokemon_id', $id)->get();
 
         foreach($egg_types as $egg_type)
         {
-            array_push($result['egg_groups'], $egg_type->egg_type);
+            array_push($result, $egg_type->egg_type);
         }
 
+        return $result;
+    }
+
+    //method to get a pokemon's stats and return as an array
+    public function getPokemonStats($id)
+    {
+        $result = array();
+
+        $stats = Stat::find($id);
+
+        $result['hp'] = $stats->hp;
+        $result['speed'] = $stats->speed;
+        $result['attack'] = $stats->attack;
+        $result['defense'] = $stats->defense;
+        $result['special_attack'] = $stats->special_attack;
+        $result['special_defense'] = $stats->special_defense;
+
+        return $result;
+    }
+
+    //method to get a pokemon's types and return as an array
+    public function getPokemonTypes($id)
+    {
+        $result = array();
+        $types = Type::where('pokemon_id', $id)->get();
         foreach($types as $type)
         {
-            array_push($result['types'], $type->type);
+            array_push($result, $type->type);
             //print($type->type);
         }
-
-        $result['stats']['hp'] = $stats->hp;
-        $result['stats']['speed'] = $stats->speed;
-        $result['stats']['attack'] = $stats->attack;
-        $result['stats']['defense'] = $stats->defense;
-        $result['stats']['special_attack'] = $stats->special_attack;
-        $result['stats']['special_defense'] = $stats->special_defense;
-
-        //var_dump($result);
 
         return $result;
     }
