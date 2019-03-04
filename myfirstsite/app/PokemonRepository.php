@@ -27,7 +27,20 @@ class PokemonRepository
         $per_page = $args['per_page'] ?? 15; //combo of isset and ternary operator
 
         $paginate = Pokemon::simplePaginate($per_page);
-        return($paginate->toJson());
+        //var_dump($paginate);
+        //since paginate already has the pokemonOnly data, we just need to add the other tables info
+        /*
+        foreach($paginate['data'] as $pokemon)
+        {
+            $paginate['types'] = $this->getPokemonTypes($id);
+            $paginate['abilities'] = $this->getPokemonAbilities($id);
+            $paginate['egg_groups'] = $this->getPokemonEggGroups($id);
+            $paginate['stats'] = $this->getPokemonStats($id);
+        }
+        */
+
+        return($paginate); //toJson not required since this already happens in API routes
+        //return($paginate->toJson());
 
         //return(array('page' => $page, 'per_page' => $per_page));
         //print($page . ', ' . $per_page);
@@ -37,6 +50,10 @@ class PokemonRepository
     public function getPokemon($id)
     {
         $result = $this->getPokemonOnly($id); //associative array ready to be sent as JSON
+        if($result === NULL)
+        {
+            return 404;
+        }
         $result['types'] = $this->getPokemonTypes($id);
         $result['abilities'] = $this->getPokemonAbilities($id);
         $result['egg_groups'] = $this->getPokemonEggGroups($id);
@@ -53,6 +70,10 @@ class PokemonRepository
         $result = array();
 
         $pokemon = Pokemon::find($id);
+        if($pokemon === NULL)
+        {
+            return NULL;
+        }
         $result['id'] = $pokemon->id;
         $result['name'] = $pokemon->name;
         $result['height'] = $pokemon->height;
