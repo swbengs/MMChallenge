@@ -2,6 +2,8 @@
 
 - branch.md is overview of branches
   - correct namings here. Such as documentation branch is also design work branch
+- commands.md
+  - lists useful commands from starting homestead to using it. Some MySQL in here as well
 - design.md is for general things
   - notes and ramblings in general. Can be moved to proper file later when they are better defined.
   - general list of what to do and what order

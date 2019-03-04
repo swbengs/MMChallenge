@@ -1,5 +1,8 @@
 # File for database design ideas
 
+## CSV file
+type, abilities, egg groups, and stats are in JSON format. Use PHP JSON commands to grab the goods.
+
 ## Pokemon table
 Field names are "id","name","types","height","weight","abilities","egg_groups","stats","genus","description"
 
@@ -16,7 +19,7 @@ Note: these are not neccesarily the names I'll use just getting the tables mappe
 * types table(pokemon id, type)
 * abilities table(pokemon id, ability)
 * egg_groups table(pokemon id, egg group)
-* stats table(pokemon id, hp, speed, attack, defense, special attack, special defense)
+* stats table(hp, speed, attack, defense, special attack, special defense) this table's id matches the pokemon id aka 1 to 1 relationship
 
 Each table needs a model
 
