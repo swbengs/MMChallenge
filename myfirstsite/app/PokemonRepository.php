@@ -15,6 +15,21 @@ Class to abstract the database representation of Pokemon. Allows the controllers
 
 class PokemonRepository
 {
+    public function paginate($args) //args is the request given to us. page is required, per_page is not
+    {
+        //null coalescing operator neat
+        $page = $args['page'] ?? 0;
+        if($page === 0)
+        {
+            return 404; //return error, can be something other than 404 not found. 203 is bad request? check on this
+        }
+        //var_dump($args);
+        $per_page = $args['per_page'] ?? 15; //combo of isset and ternary operator
+
+        return(array('page' => $page, 'per_page' => $per_page));
+        //print($page . ', ' . $per_page);
+    }
+
     public function getPokemon($id)
     {
         $result = array(); //associative array ready to be sent as JSON
