@@ -46,9 +46,6 @@ class PokemonRepository
 
         return($paginate); //toJson not required since this already happens in API routes
         //return($paginate->toJson());
-
-        //return(array('page' => $page, 'per_page' => $per_page));
-        //print($page . ', ' . $per_page);
     }
 
     //method to get all of a pokemon's information
