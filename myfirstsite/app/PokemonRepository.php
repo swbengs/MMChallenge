@@ -26,18 +26,23 @@ class PokemonRepository
         //var_dump($args);
         $per_page = $args['per_page'] ?? 15; //combo of isset and ternary operator
 
-        $paginate = Pokemon::simplePaginate($per_page);
+        //super innefficient way but it works. Unsure how to merge multiple models so only 1 paginate call is needed. Probably need to start using eloquent relationships.
+        //this way means the pokemon table is paginated, then converted to json only to be converted back and modified. and lastly coverted back into json. :\
+        $paginate = Pokemon::simplePaginate($per_page)->toJson();
         //var_dump($paginate);
         //since paginate already has the pokemonOnly data, we just need to add the other tables info
-        /*
+
+        $paginate = json_decode($paginate, true);
+        $index = 0;
         foreach($paginate['data'] as $pokemon)
         {
-            $paginate['types'] = $this->getPokemonTypes($id);
-            $paginate['abilities'] = $this->getPokemonAbilities($id);
-            $paginate['egg_groups'] = $this->getPokemonEggGroups($id);
-            $paginate['stats'] = $this->getPokemonStats($id);
+            $id = $pokemon['id'];
+            $paginate['data'][$index]['types'] = $this->getPokemonTypes($id);
+            $paginate['data'][$index]['abilities'] = $this->getPokemonAbilities($id);
+            $paginate['data'][$index]['egg_groups'] = $this->getPokemonEggGroups($id);
+            $paginate['data'][$index]['stats'] = $this->getPokemonStats($id);
+            $index++;
         }
-        */
 
         return($paginate); //toJson not required since this already happens in API routes
         //return($paginate->toJson());
