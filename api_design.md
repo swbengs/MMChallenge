@@ -23,5 +23,7 @@ all api have a prefix of /api/ which I will not keep re-typing. An example: /api
 * Paginate
    * http://192.168.10.10:8000/api/pokemon?page=1&per_page=9 page 1 and per page of 9 pokemon
    * http://192.168.10.10:8000/api/pokemon?page=10 page 10 and default per page of 15
+* Trainer
+   * http://192.168.10.10:8000/api/register?name=scott&email=test@test.net&password=pass&password_confirmation=pass //register the user with name scott, email of test@test.net, and password of pass
 * Admin
    * http://192.168.10.10:8000/api/admin/setup  runs the setup method that will fill in the pokemon table from the CSV file. Trying to re-run it will cause an exception and a debug page to show. Before running it again, use migrate:fresh to rebuild the table
