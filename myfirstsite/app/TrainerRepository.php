@@ -19,4 +19,18 @@ class TrainerRepository
 
         return $result;
     }
+
+    //gets user information by id. Returns null if id does not exist
+    public function getTrainerByID($trainer_id)
+    {
+        $user = User::find($trainer_id);
+        if($user === null)
+        {
+            return null;
+        }
+        else
+        {
+            return array('trainer_id' => $user->id, 'name' => $user->name);
+        }
+    }
 }

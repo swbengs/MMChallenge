@@ -4,6 +4,7 @@ namespace App;
 
 use App\PokemonRepository;
 use App\TrainerRepository;
+use App\Caught;
 
 /*
 Class to abstract the database representation of both our trainer and pokemon. Allows the controllers to not worry about how it's actually stored.
@@ -22,12 +23,39 @@ class PokemonTrainerRepository
     public function markPokemon($user_id, $pokemon_id)
     {
         //find the trainer with given token. pass back 404 if no one has said token
-        $trainer_repo = TrainerRepository();
-        $trainer = $trainer_repo->getTrainerByToken($api_token);
+        $trainer_repo = new TrainerRepository();
+        $trainer = $trainer_repo->getTrainerByID($user_id);
         if($trainer === NULL)
         {
             return 404;
         }
         
+        //var_dump($trainer);
+        //check if already marked
+        if(!$this->checkMarked($trainer['trainer_id'], $pokemon_id))
+        {
+            $caught = new Caught;
+            $caught->trainer_id = $trainer['trainer_id'];
+            $caught->pokemon_id = $pokemon_id;
+            $caught->save();
+        }
+        
+        return 200;
+    }
+
+    public function checkMarked($trainer_id, $pokemon_id)
+    {
+        $caught = Caught::where('trainer_id', $trainer_id)->where('pokemon_id', $pokemon_id)->get();
+
+        if($caught->isEmpty())
+        {
+            //return var_dump($caught);
+            return false;
+        }
+        else
+        {
+            //return var_dump($caught);
+            return true;
+        }
     }
 }
