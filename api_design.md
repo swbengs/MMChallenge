@@ -23,5 +23,12 @@ all api have a prefix of /api/ which I will not keep re-typing. An example: /api
 * Paginate
    * http://192.168.10.10:8000/api/pokemon?page=1&per_page=9 page 1 and per page of 9 pokemon
    * http://192.168.10.10:8000/api/pokemon?page=10 page 10 and default per page of 15
+* Trainer(register, login, logout, view caught pokemon, and mark a single pokemon as caught)
+   * http://192.168.10.10:8000/api/register?name=scott&email=test@test.net&password=password&password_confirmation=password //register the user with name scott, email of test@test.net, and password of password(needs to be at least 6 characters)
+   * http://192.168.10.10:8000/api/login?email=bob@test.net&password=password //login with user that has email bob@test.net and password of password
+   * http://192.168.10.10:8000/api/logout?email=bob@test.net&password=password //logout with user that has email bob@test.net and password of password
+   * http://192.168.10.10:8000/api/user?api_token=NnYCIUJimBXRTCGkK2x2eZUGMdsDk4budlS7S0JS694QLSllHnDZlhA1FnFb //returns information about user who has this api_token. Good way to check the login worked
+   * http://192.168.10.10:8000/api/trainer?api_token=NnYCIUJimBXRTCGkK2x2eZUGMdsDk4budlS7S0JS694QLSllHnDZlhA1FnFb //views pokemon caught by trainer with this api_token
+   * http://192.168.10.10:8000/api/trainer/mark?api_token=GIAfkmeXrqPeXyAT06waPhW5nEx6csld14zlOlUg8USYJ8cJCS9CVQFwRVyA&pokemon_id=1 //mark pokemon with an id of 1 as caught for this trainer
 * Admin
    * http://192.168.10.10:8000/api/admin/setup  runs the setup method that will fill in the pokemon table from the CSV file. Trying to re-run it will cause an exception and a debug page to show. Before running it again, use migrate:fresh to rebuild the table

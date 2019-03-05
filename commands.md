@@ -11,7 +11,9 @@
 * php artisan migrate:fresh //will completely wipe the database and rebuild it
 
 ## mysql
+* show databases; //shows the databases on the server
 * use homestead; //this is the database that contains project databases
+* show tables; //shows all tables in the used database
 * describe table //shows what the structure of the table is
 * select * from table //get everything from a table
 

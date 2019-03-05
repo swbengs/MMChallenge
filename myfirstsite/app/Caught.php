@@ -5,10 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /*
-Class for egg groups. Each pokeman can have many groups
+Class for the pokemon that are caught. Links with user_id and pokemon_id
 */
 
-class EggType extends Model
+class Caught extends Model
 {
     public $timestamps = false; //don't require these two fields
 }

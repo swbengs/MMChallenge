@@ -69,13 +69,12 @@ class PokemonRepository
     //method to get just the pokemon table information and return as array
     public function getPokemonOnly($id)
     {
-        $result = array();
-
         $pokemon = Pokemon::find($id);
         if($pokemon === NULL)
         {
             return NULL;
         }
+        $result = array();
         $result['id'] = $pokemon->id;
         $result['name'] = $pokemon->name;
         $result['height'] = $pokemon->height;
@@ -146,6 +145,7 @@ class PokemonRepository
         return $result;
     }
 
+    //adds the pokemon to the database with the given information
     public function setPokemon($id, $name, $types, $height, $weight, $abilties, $egg_groups, $stats, $genus, $description)
     {
         $pokemon = new Pokemon;
@@ -192,6 +192,7 @@ class PokemonRepository
         }
     }
 
+    //method that will load all pokemon from the pokedex.csv file
     public function setup()
     {
         $file = fopen(storage_path('app/pokedex.csv'), 'r');
@@ -232,6 +233,7 @@ class PokemonRepository
         return 200; //if we reach here it worked
     }
 
+    //test method to practice how to load csv file
     public function csvTest()
     {
         $file = fopen(storage_path('app/pokedex.csv'), 'r');

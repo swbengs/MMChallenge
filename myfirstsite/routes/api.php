@@ -25,9 +25,17 @@ Route::get('pokemon', 'PokemonController@paginate'); //paginated. Takes two get 
 Route::get('pokemon/{id}', 'PokemonController@show'); //single
 
 //trainer
+Route::get('register', 'Auth\RegisterController@register'); //make new trainer. needs name, email, password, password_confirmation to register in get/post request
+Route::get('login', 'Auth\LoginController@login'); //needs email and password
+Route::get('logout', 'Auth\LoginController@logout'); //needs email and password
+
+//authentication required. Need the get/post request to contain api_token=yourtoken  This is gotten from login
+Route::group(['middleware' => 'auth:api'], function() 
+{
+    Route::get('trainer/', 'TrainerController@show'); //view caught pokemon
+    Route::get('trainer/mark', 'TrainerController@mark'); //mark a pokemon as caught. uses pokemon_id=number from get request to set the pokemon    
+});
 
 //test
 Route::get('csv', 'PokemonController@csvTest');
 Route::get('test', 'PokemonController@test');
-
-//Route::get();
