@@ -6,6 +6,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/*
+Used in place of a trainer class. Needs name, email, password, password confirm to register
+*/
+
 class User extends Authenticatable
 {
     use Notifiable;

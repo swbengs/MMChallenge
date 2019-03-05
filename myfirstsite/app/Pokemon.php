@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /*
-Main pokemon class. Only contains the fields which are static
+Main pokemon class. Only contains the fields which are static. id, name, height, weight, genus, and description
 */
 
 class Pokemon extends Model

@@ -11,7 +11,7 @@ class TrainerController extends Controller
         return 202;
     }
 
-    public function mark($api_token)
+    public function mark(Request $request, $api_token)
     {
         return 203;
     }
