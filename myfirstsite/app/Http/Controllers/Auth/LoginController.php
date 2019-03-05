@@ -43,7 +43,7 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
 
-        if($this->attempLogin($request))
+        if($this->attemptLogin($request))
         {
             $user = $this->guard()->user();
             $user->generateToken();
@@ -56,18 +56,16 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $user = Auth::guard('api')->user();
+        $this->validateLogin($request);
 
-        if($user)
+        if($this->attemptLogin($request))
         {
+            $user = $this->guard()->user();
             $user->api_token = null;
             $user->save();
-        }
-        else
-        {
-            return response()->json(['data' => 'User or password mismatch'], 404);
+            return response()->json(['data' => 'User logged out'], 200);
         }
 
-        return response()->json(['data' => 'User logged out'], 200);
+        return $this->sendFailedLoginResponse($request);
     }
 }
