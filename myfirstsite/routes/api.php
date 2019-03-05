@@ -26,6 +26,8 @@ Route::get('pokemon/{id}', 'PokemonController@show'); //single
 
 //trainer
 Route::get('register', 'Auth\RegisterController@register');
+Route::get('login', 'Auth\LoginController@login');
+Route::get('logout', 'Auth\LoginController@logout');
 
 //test
 Route::get('csv', 'PokemonController@csvTest');
