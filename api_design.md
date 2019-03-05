@@ -29,5 +29,6 @@ all api have a prefix of /api/ which I will not keep re-typing. An example: /api
    * http://192.168.10.10:8000/api/logout?email=bob@test.net&password=password //logout with user that has email bob@test.net and password of password
    * http://192.168.10.10:8000/api/user?api_token=NnYCIUJimBXRTCGkK2x2eZUGMdsDk4budlS7S0JS694QLSllHnDZlhA1FnFb //returns information about user who has this api_token. Good way to check the login worked
    * http://192.168.10.10:8000/api/trainer?api_token=NnYCIUJimBXRTCGkK2x2eZUGMdsDk4budlS7S0JS694QLSllHnDZlhA1FnFb //views pokemon caught by trainer with this api_token
+   * http://192.168.10.10:8000/api/trainer/mark?api_token=GIAfkmeXrqPeXyAT06waPhW5nEx6csld14zlOlUg8USYJ8cJCS9CVQFwRVyA&pokemon_id=1 //mark pokemon with an id of 1 as caught for this trainer
 * Admin
    * http://192.168.10.10:8000/api/admin/setup  runs the setup method that will fill in the pokemon table from the CSV file. Trying to re-run it will cause an exception and a debug page to show. Before running it again, use migrate:fresh to rebuild the table
