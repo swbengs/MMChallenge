@@ -25,6 +25,7 @@ Route::get('pokemon', 'PokemonController@paginate'); //paginated. Takes two get 
 Route::get('pokemon/{id}', 'PokemonController@show'); //single
 
 //trainer
+Route::get('register', 'Auth\RegisterController@register');
 
 //test
 Route::get('csv', 'PokemonController@csvTest');
