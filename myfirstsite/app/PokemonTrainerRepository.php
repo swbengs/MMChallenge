@@ -16,7 +16,33 @@ class PokemonTrainerRepository
     //returns trainer name(email) and an array of pokemon id and names. These are the pokemon this trainer has caught. Requires user id
     public function getCaughtPokemon($user_id)
     {
-        $pokemon_repo = PokemonRepository();
+        $trainer_repo = new TrainerRepository();
+
+        $trainer = $trainer_repo->getTrainerByID($user_id);
+        if($trainer === NULL)
+        {
+            return 404;
+        }
+
+        $trainer['caught_list'] = $this->caughtPokemonList($user_id);
+        return $trainer;
+    }
+
+    //method will make an array and add all caught pokemon id and names to it
+    public function caughtPokemonList($trainer_id)
+    {
+        $result = array();
+        $pokemon_repo = new PokemonRepository();
+
+        $caught_collection = Caught::where('trainer_id', $trainer_id)->get();
+
+        foreach($caught_collection as $caught)
+        {
+            $pokemon = $pokemon_repo->getPokemonOnly($caught->pokemon_id);
+            array_push($result, array('id' => $pokemon['id'], 'name' => $pokemon['name']));
+        }
+
+        return $result;
     }
 
     //marks a given pokemon as caught for the trainer that matches the id
@@ -43,6 +69,7 @@ class PokemonTrainerRepository
         return 200;
     }
 
+    //method to check if this trainer has already marked this pokemon as marked. True if they have. false if not
     public function checkMarked($trainer_id, $pokemon_id)
     {
         $caught = Caught::where('trainer_id', $trainer_id)->where('pokemon_id', $pokemon_id)->get();

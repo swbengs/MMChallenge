@@ -69,13 +69,12 @@ class PokemonRepository
     //method to get just the pokemon table information and return as array
     public function getPokemonOnly($id)
     {
-        $result = array();
-
         $pokemon = Pokemon::find($id);
         if($pokemon === NULL)
         {
             return NULL;
         }
+        $result = array();
         $result['id'] = $pokemon->id;
         $result['name'] = $pokemon->name;
         $result['height'] = $pokemon->height;

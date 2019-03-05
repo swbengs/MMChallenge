@@ -12,7 +12,8 @@ class TrainerController extends Controller
         if($request->user())
         {
             $user_id = $request->user()->id;
-            return $user_id;
+            $repo = new PokemonTrainerRepository();
+            return $repo->getCaughtPokemon($user_id);
         }
     }
 

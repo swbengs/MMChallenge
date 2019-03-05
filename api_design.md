@@ -24,7 +24,7 @@ all api have a prefix of /api/ which I will not keep re-typing. An example: /api
    * http://192.168.10.10:8000/api/pokemon?page=1&per_page=9 page 1 and per page of 9 pokemon
    * http://192.168.10.10:8000/api/pokemon?page=10 page 10 and default per page of 15
 * Trainer(register, login, logout, view caught pokemon, and mark a single pokemon as caught)
-   * http://192.168.10.10:8000/api/register?name=scott&email=test@test.net&password=pass&password_confirmation=pass //register the user with name scott, email of test@test.net, and password of pass
+   * http://192.168.10.10:8000/api/register?name=scott&email=test@test.net&password=password&password_confirmation=password //register the user with name scott, email of test@test.net, and password of password(needs to be at least 6 characters)
    * http://192.168.10.10:8000/api/login?email=bob@test.net&password=password //login with user that has email bob@test.net and password of password
    * http://192.168.10.10:8000/api/logout?email=bob@test.net&password=password //logout with user that has email bob@test.net and password of password
    * http://192.168.10.10:8000/api/user?api_token=NnYCIUJimBXRTCGkK2x2eZUGMdsDk4budlS7S0JS694QLSllHnDZlhA1FnFb //returns information about user who has this api_token. Good way to check the login worked
