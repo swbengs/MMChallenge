@@ -6,6 +6,7 @@ use App\User;
 
 /*
 Class to abstract the database representation of User aka our Trainer. Allows the controllers to not worry about how it's actually stored.
+This is for methods that interact with only the user table. If it touches any others, it should go in PokemonTrainerRepository
 */
 
 class TrainerRepository

@@ -146,6 +146,7 @@ class PokemonRepository
         return $result;
     }
 
+    //adds the pokemon to the database with the given information
     public function setPokemon($id, $name, $types, $height, $weight, $abilties, $egg_groups, $stats, $genus, $description)
     {
         $pokemon = new Pokemon;
@@ -192,6 +193,7 @@ class PokemonRepository
         }
     }
 
+    //method that will load all pokemon from the pokedex.csv file
     public function setup()
     {
         $file = fopen(storage_path('app/pokedex.csv'), 'r');
@@ -232,6 +234,7 @@ class PokemonRepository
         return 200; //if we reach here it worked
     }
 
+    //test method to practice how to load csv file
     public function csvTest()
     {
         $file = fopen(storage_path('app/pokedex.csv'), 'r');
