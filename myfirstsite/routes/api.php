@@ -28,8 +28,10 @@ Route::get('pokemon/{id}', 'PokemonController@show'); //single
 Route::get('register', 'Auth\RegisterController@register'); //make new trainer
 Route::get('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout');
-Route::get('trainer/{api_token}', 'TrainerController@show'); //view caught pokemon
-Route::get('trainer/{api_token}/mark', 'TrainerController@mark'); //mark a pokemon as caught. uses pokemon_id=number from get request to set the pokemon
+
+//authentication required. Need the get/post request to contain api_token=yourtoken  This is gotten from login
+Route::get('trainer/', 'TrainerController@show'); //view caught pokemon
+Route::get('trainer/mark', 'TrainerController@mark'); //mark a pokemon as caught. uses pokemon_id=number from get request to set the pokemon
 
 //test
 Route::get('csv', 'PokemonController@csvTest');
