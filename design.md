@@ -30,5 +30,3 @@ The models themselves will control the tables but this will guide the models to 
 Method to take pokemon information and place it all correctly in the required tables. Again simply an abstraction so we don't have to worry about how the pokemon is actually stored. Many controllers can use it so it should be shared.
 Controllers calling other controllers is bad design from what I've read
 
-## Important notes
-
