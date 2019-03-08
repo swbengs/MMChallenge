@@ -14,3 +14,5 @@
    - List all public api URL
    - List admin URL
    - List debug/dev URL
+   - Sample URLs for Homestead to show how it works
+
