@@ -1,5 +1,10 @@
 # api design file
 
+## API calls
+- All calls are designed to work with HTTP GET. A few need the URL line querys such as page or email. You can type in the fields just like shown below in a browser to test the API
+- Making a program or app to do this for you is even better but more time consuming
+- Tested in Laravel Homestead version 8.02
+
 ## URL
 all api have a prefix of /api/ which I will not keep re-typing. An example: /api/pokemon?page=1 would get the pagination result. I will only show the pokemon?page=1 part the api is assumed to have been added
 
@@ -21,6 +26,14 @@ all api have a prefix of /api/ which I will not keep re-typing. An example: /api
 
 ### Debug/dev
 1. test(simple test route)
+
+### Example of how to use
+1. View single pokemon or view the pagination form to get an idea of what pokemon are out there. Note pokemon id numbers for later use
+2. Create a trainer with register. Keep the api_token that is passed back to you. Username is your email. Don't forget your password.
+3. Login and logout as needed to make new api tokens or clear old ones. You can stay logged in as long as you want. The system will not auto log you out.
+4. Use this to start marking pokemon you have caught with trainer?apitoken&pokemon_id GET fields. If you caught a blastoise send it with pokemon_id=9 for example.
+5. View pokemon you have caught. Some basic information about the trainer is sent back and a JSON array with the id and name of all pokemon you listed as caught.
+6. Enjoy!
 
 ### Sample routes for homestead
 * Single pokemon get
